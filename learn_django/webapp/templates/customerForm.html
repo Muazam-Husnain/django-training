@@ -1,14 +1,26 @@
-{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Customer Form</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    {% load static %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
 </head>
 <body style="padding: 20px;">
-    {% crispy form form.helper %}
+    <h2>Please fill out customer information</h2>
+    <form method="post" class="form-group">
+            {% for field in form  %}
+                    <div class="form-group row">
+                        <label class="col-sm col-form-label">{{ field.label_tag }}</label>
+                        <div class="col-sm-11">
+                            {{ field }}
+                        </div>
+                    </div>
+            {% endfor %}
+        <button class="btn btn-primary" type="submit" style="margin-left: 40px;">Submit</button>
+    </form>
 </body>
 </html>
