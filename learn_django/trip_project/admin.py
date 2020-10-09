@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Trip, Itenrary, Host
+from .models import Trip, Itenrary, Host, Location
 admin.site.register(Trip)
 admin.site.register(Itenrary)
 admin.site.register(Host)
-
-# Register your models here.
+admin.site.register(Location)
