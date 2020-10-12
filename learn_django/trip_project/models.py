@@ -9,8 +9,7 @@ class Host(models.Model):
 
 
 class Location(models.Model):
-    LOCATION_CHOICES = [('NR', 'Naran'), ('HN', 'Hunza'), ('SK', 'Skardu'), ('LHE', 'Lahore'), ('ISB', 'Islamabad')]
-    location_name = models.CharField(max_length=100, choices=LOCATION_CHOICES)
+    location_name = models.CharField(max_length=100)
 
 class Trip(models.Model):
     trip_title = models.CharField(max_length=60)
