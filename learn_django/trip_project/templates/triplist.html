@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trips List</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+</head>
+<body>
+    <h2 class="p-3 mb-2 bg-info text-white"> Trips List </h2>
+
+    <div class="container border border-bottom-0 border-top-0" style="margin-top:30px">
+        <div class="row my-3 p-3 mb-2 bg-dark text-white">
+            <div class="col-sm "><h2>Trip Tittle</h2></div>
+            <div class="col-sm"><h2>Description</h2></div>
+            <div class="col-sm"><h2>Start Date</h2></div>
+            <div class="col-sm"><h2>End Date</h2></div>
+            <div class="col-sm"><h2>Price</h2></div>
+        </div>
+
+    {% for trip in trips %}
+        <div class="row my-2 border-top-0 border">
+            <div class="col-sm align-self-center">
+                {{ trip.trip_title }}
+            </div>
+            <div class="col-sm align-self-center">
+                {{ trip.trip_description }}
+            </div>
+            <div class="col-sm align-self-center">
+                {{ trip.start_date }}
+            </div>
+            <div class="col-sm align-self-center">
+                {{ trip.end_date }}
+            </div>
+             <div class="col-sm align-self-center">
+                {{ trip.price }}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+
+</body>
+</html>
