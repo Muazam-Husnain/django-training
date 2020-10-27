@@ -5,22 +5,24 @@ from .models import Host, Location, Trip, Itenrary
 class HostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Host
-        fields = ['host_name', 'host_number']
+        fields = ['name', 'number']
 
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ['location_name']
+        fields = ['name']
 
 
 class TripSerializer(serializers.ModelSerializer):
-    host = HostSerializer()
-    start_location = LocationSerializer()
-    destination_location = LocationSerializer()
-    created_by = serializers.StringRelatedField()
+    host = HostSerializer(many=False, read_only=True)
+    start_location = LocationSerializer(many=False, read_only=True)
+    destination_location = LocationSerializer(many=False, read_only=True)
+    created_by = serializers.StringRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Trip
-        fields = '__all__'
+        fields = ['title', 'description', 'start_date', 'end_date', 'price', 'created_at',
+                  'created_by', 'host', 'poster', 'destination_location', 'start_location',
+                  'trip_policy', 'total_days']
 

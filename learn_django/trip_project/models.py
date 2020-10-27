@@ -4,16 +4,23 @@ from django.db import models
 
 
 class Host(models.Model):
-    host_name = models.CharField(max_length=100)
-    host_number = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
+    number = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
 
 
 class Location(models.Model):
-    location_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 
 class Trip(models.Model):
-    trip_title = models.CharField(max_length=60)
-    trip_description = models.TextField()
+    title = models.CharField(max_length=60)
+    description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
     price = models.IntegerField()
@@ -31,6 +38,9 @@ class Trip(models.Model):
     def total_days(self):
         return (datetime.strptime(str(self.end_date), "%Y-%m-%d") -
                 datetime.strptime(str(self.start_date), "%Y-%m-%d")).days
+
+    def __str__(self):
+        return self.title
 
 
 class Itenrary(models.Model):
