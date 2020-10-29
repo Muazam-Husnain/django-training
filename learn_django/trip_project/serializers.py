@@ -5,13 +5,13 @@ from .models import Host, Location, Trip, Itenrary
 class HostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Host
-        fields = ['name', 'number']
+        exclude = ['id']
 
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ['name']
+        exclude = ['id']
 
 
 class TripSerializer(serializers.ModelSerializer):
@@ -22,7 +22,5 @@ class TripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ['title', 'description', 'start_date', 'end_date', 'price', 'created_at',
-                  'created_by', 'host', 'poster', 'destination_location', 'start_location',
-                  'trip_policy', 'total_days']
+        exclude = ['id']
 
