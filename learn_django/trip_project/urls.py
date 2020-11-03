@@ -9,5 +9,8 @@ router.register(r'trip', views.TripsView, 'trip-details')
 
 urlpatterns = [
     url('api/v1/', include(router.urls)),
-    url(r'^trips$', views.index, name='index')
+    url('^user/$', views.create_profile),
+    url('profile/(?P<username>\w{0,50})', views.edit_profile),
+    # url('users/<string:username>/', views.edit_profile, name='profile'),
+    url('api_auth/', include('rest_framework.urls'))
 ]

@@ -1,6 +1,26 @@
 from datetime import datetime
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class Profile(models.Model):
+    GENDER_CHOICES = [('M','Male'), ('F','Female')]
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    nick_name = models.CharField(max_length=50, null=True)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=6)
+    bio = models.TextField(max_length=500, null=True)
+
+
+class TripsUser(User):
+    class Meta:
+        proxy = True
+
+    def is_staff_member(user):
+        return user.groups.filter(name='staff').exists()
+
+    def is_su_member(user):
+        return user.groups.filter(name='superuser').exists()
 
 
 class Host(models.Model):
