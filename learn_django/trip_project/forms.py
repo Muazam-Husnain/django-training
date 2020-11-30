@@ -27,7 +27,7 @@ class Create_User_Form(UserCreationForm):
 class Create_Profile_Form(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['nick_name', 'gender', 'bio']
+        fields = ['nick_name', 'gender', 'bio', 'timezone']
 
 class Edit_User_Form(UserCreationForm):
 

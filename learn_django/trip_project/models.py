@@ -1,15 +1,23 @@
+import pytz
 from datetime import datetime
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 
+
+class SiteConfigration(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    add_trip_url = models.CharField(max_length=150, default='Null')
 
 class Profile(models.Model):
     GENDER_CHOICES = [('M','Male'), ('F','Female')]
+    TIMEZONE_CHOICES = zip(pytz.all_timezones, pytz.all_timezones)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     nick_name = models.CharField(max_length=50, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=6)
     bio = models.TextField(max_length=500, null=True)
+    timezone = models.CharField(max_length=32, default='UTC', choices=TIMEZONE_CHOICES)
 
 
 class TripsUser(User):

@@ -12,3 +12,4 @@ def create_profile(sender, instance, created, **kwargs):
         instance.groups.add(group)
         instance.save()
         Profile.objects.create(user=instance)
+

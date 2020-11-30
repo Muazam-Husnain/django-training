@@ -48,7 +48,7 @@ def create_profile(request):
         if user_form.is_valid():
             user = user_form.save()
             profile = Profile.objects.get(user=user)
-            profile_form = create_profile(request.POST, instance=profile)
+            profile_form = Create_Profile_Form(request.POST, instance=profile)
             if profile_form.is_valid():
                 profile_form.save()
             else:
