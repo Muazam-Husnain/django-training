@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-class Create_User_Form(UserCreationForm):
+class CreateUserForm(UserCreationForm):
 
     class Meta:
         model = User
@@ -24,12 +24,12 @@ class Create_User_Form(UserCreationForm):
         return email
 
 
-class Create_Profile_Form(forms.ModelForm):
+class CreateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['nick_name', 'gender', 'bio', 'timezone']
 
-class Edit_User_Form(UserCreationForm):
+class EditUserForm(UserCreationForm):
 
     class Meta:
         model = User

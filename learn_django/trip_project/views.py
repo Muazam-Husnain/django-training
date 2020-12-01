@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
-from .forms import Create_User_Form, Create_Profile_Form, Edit_User_Form
+from .forms import CreateUserForm, CreateProfileForm, EditUserForm
 from .models import Trip, Profile, TripsUser
 from .serializers import TripSerializer
 from .permissions import IsSuperUserOrStaff
@@ -20,8 +20,8 @@ def edit_profile(request, username):
     if request.method == 'POST':
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user=user)
-        user_form = Edit_User_Form(request.POST, instance=user)
-        profile_form = Create_Profile_Form(request.POST, instance=profile)
+        user_form = EditUserForm(request.POST, instance=user)
+        profile_form = CreateProfileForm(request.POST, instance=profile)
         if user_form.is_valid() & profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -31,8 +31,8 @@ def edit_profile(request, username):
         user = User.objects.get(username=username)
         if user == request.user or req_user.is_su_member():
             profile = Profile.objects.get(user=user)
-            user_form = Edit_User_Form(instance=user)
-            profile_form = Create_Profile_Form(instance=profile)
+            user_form = EditUserForm(instance=user)
+            profile_form = CreateProfileForm(instance=profile)
             return render(request, 'edit_user.html', {
                 'profile_form': profile_form,
                 'user_form': user_form,
@@ -44,11 +44,11 @@ def edit_profile(request, username):
 
 def create_profile(request):
     if request.method == 'POST':
-        user_form = Create_User_Form(request.POST)
+        user_form = CreateUserForm(request.POST)
         if user_form.is_valid():
             user = user_form.save()
             profile = Profile.objects.get(user=user)
-            profile_form = Create_Profile_Form(request.POST, instance=profile)
+            profile_form = CreateProfileForm(request.POST, instance=profile)
             if profile_form.is_valid():
                 profile_form.save()
             else:
@@ -56,10 +56,13 @@ def create_profile(request):
         else:
             messages.error(request, ('Correct the information in User'))
 
-    user_form = Create_User_Form(request.POST)
-    profile_form = Create_Profile_Form(request.POST)
+    user_form = CreateUserForm(request.POST)
+    profile_form = CreateProfileForm(request.POST)
     return render(request, 'create_user.html', {
         'profile_form': profile_form,
         'user_form': user_form,
     })
+
+def add_trip(resquest):
+    return {}
 

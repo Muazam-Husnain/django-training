@@ -7,8 +7,8 @@ from django.contrib.sites.models import Site
 
 
 class SiteConfigration(models.Model):
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
-    add_trip_url = models.CharField(max_length=150, default='Null')
+    site = models.OneToOneField(Site, on_delete=models.CASCADE)
+    values = models.JSONField(default={})
 
 class Profile(models.Model):
     GENDER_CHOICES = [('M','Male'), ('F','Female')]

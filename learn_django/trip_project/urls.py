@@ -12,5 +12,6 @@ urlpatterns = [
     url('^user/$', views.create_profile),
     url('profile/(?P<username>\w{0,50})', views.edit_profile),
     # url('users/<string:username>/', views.edit_profile, name='profile'),
-    url('api_auth/', include('rest_framework.urls'))
+    url('api_auth/', include('rest_framework.urls')),
+    url('add_trip', views.add_trip, name='AddTrip')
 ]

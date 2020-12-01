@@ -1,11 +1,11 @@
 from learn_django import settings
-from .models import Profile, SiteConfigration
+from django.urls import reverse
 
 
-def access_required_veriables(request):
+def access(request):
     site = request.site
-    site_configuration = SiteConfigration.objects.filter(site=site)
-    timezone = Profile.objects.filter(user=request.user).values('timezone')
+    site_configuration = site.siteconfigration
+    timezone = request.user.profile.timezone
     return {'base_usl': settings.BASE_URL, 'trips_dashboard_url': '', 'platform_name': site.name,
-            'add_trip_url': site_configuration.values('add_trip_url'), 'timezone': timezone}
+            'add_trip_url': reverse('AddTrip'), 'timezone': timezone}
 
