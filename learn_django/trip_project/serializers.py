@@ -26,6 +26,5 @@ class TripSerializer(serializers.ModelSerializer):
         response['host'] = HostSerializer(instance.host).data
         response['start_location'] = LocationSerializer(instance.start_location).data
         response['destination_location'] = LocationSerializer(instance.destination_location).data
-        # response['created_by'] = serializers.StringRelatedField()
         return response
 
