@@ -60,11 +60,6 @@ class Trip(models.Model):
     destination_location = models.ForeignKey('Location', on_delete=models.CASCADE, null=True)
     trip_policy = models.TextField(null=True)
 
-    # def save(self, *args, **kwargs):
-    #     if not self.id:
-    #         self.created_at = datetime.now()
-    #     return super(Trip, self).save(*args, **kwargs)
-
     @property
     def total_days(self):
         return (datetime.strptime(str(self.end_date), "%Y-%m-%d") -
@@ -75,7 +70,7 @@ class Trip(models.Model):
 
 class TripSchedule(models.Model):
     trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
-    over_ridden_price = models.IntegerField()
+    price_override = models.IntegerField()
     start_date = models.DateTimeField()
     end_date = models.DateField()
     is_active = models.BooleanField(default=1)

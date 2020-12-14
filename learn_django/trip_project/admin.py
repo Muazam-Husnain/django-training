@@ -8,10 +8,3 @@ admin.site.register(Profile)
 admin.site.register(SiteConfigration)
 admin.site.register(TripSchedule)
 
-class TripAdmin(admin.ModelAdmin):
-    model = Trip
-    def save_model(self, request, obj, form, change):
-        obj.created_by = request.user
-        super().save_model(request, obj, form, change)
-
-
