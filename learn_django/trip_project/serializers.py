@@ -15,12 +15,16 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class TripSerializer(serializers.ModelSerializer):
-    host = HostSerializer(many=False, read_only=True)
-    start_location = LocationSerializer(many=False, read_only=True)
-    destination_location = LocationSerializer(many=False, read_only=True)
     created_by = serializers.StringRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Trip
-        exclude = ['id']
+        exclude = ['id', 'created_at']
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['host'] = HostSerializer(instance.host).data
+        response['start_location'] = LocationSerializer(instance.start_location).data
+        response['destination_location'] = LocationSerializer(instance.destination_location).data
+        return response
 

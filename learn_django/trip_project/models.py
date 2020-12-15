@@ -49,10 +49,8 @@ class Location(models.Model):
 class Trip(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField()
-    start_date = models.DateField()
-    end_date = models.DateField()
     price = models.IntegerField()
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                    null=True, blank=True, on_delete=models.SET_NULL)
     host = models.ForeignKey('Host', on_delete=models.CASCADE, null=True)
@@ -70,9 +68,17 @@ class Trip(models.Model):
     def __str__(self):
         return self.title
 
+class TripSchedule(models.Model):
+    trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
+    price_override = models.IntegerField()
+    start_date = models.DateTimeField()
+    end_date = models.DateField()
+    is_active = models.BooleanField(default=1)
+
 
 class Itenrary(models.Model):
     trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
     day_number = models.CharField(max_length=3)
     places = models.TextField(null=True)
     description = models.TextField(null=True)
+
