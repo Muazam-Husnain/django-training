@@ -82,3 +82,12 @@ class Itenrary(models.Model):
     places = models.TextField(null=True)
     description = models.TextField(null=True)
 
+
+class Booking(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
+    booking_date = models.DateField(auto_now_add=True)
+    is_active = models.CharField(max_length=1, null=True, default=1)
+    status_change_date = models.DateTimeField(auto_now=True)
+
+

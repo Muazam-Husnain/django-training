@@ -1,19 +1,41 @@
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from django.contrib.auth.models import User
+from rest_framework.response import Response
 
 from .forms import CreateUserForm, CreateProfileForm, EditUserForm
-from .models import Trip, Profile, TripsUser
-from .serializers import TripSerializer
-from .permissions import IsSuperUserOrStaff
+from .models import Trip, Profile, TripsUser, Booking
+from .serializers import TripSerializer, BookingSerializer
+from .permissions import IsSuperUserOrStaff, IsLoggedInUser
 
 
 class TripsView(viewsets.ModelViewSet):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
     permission_classes = [IsSuperUserOrStaff]
+
+
+class BookingsView(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsLoggedInUser]
+    http_method_names = ['get', 'post', 'head', 'patch']
+
+    def get_queryset(self):
+        if self.request.trip_user.is_staff_member():
+            return Booking.objects.all()
+        return Booking.objects.filter(user=self.request.user)
+
+
+class TripBooking(viewsets.ModelViewSet):
+    serializer_class = BookingSerializer
+    permission_classes = [IsSuperUserOrStaff]
+
+    def get_queryset(self):
+        trip_id = self.kwargs['id']
+        return Booking.objects.filter(trip=trip_id)
 
 
 def edit_profile(request, username):

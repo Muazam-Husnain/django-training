@@ -1,5 +1,4 @@
 from rest_framework import permissions
-from .models import TripsUser
 
 
 class IsSuperUserOrStaff(permissions.BasePermission):
@@ -8,4 +7,9 @@ class IsSuperUserOrStaff(permissions.BasePermission):
         if not user:
             return False
         return user.is_staff_member() or user.is_su_member()
+
+
+class IsLoggedInUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return True if request.trip_user else False
 

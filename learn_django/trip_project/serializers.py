@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Host, Location, Trip, Itenrary
+from .models import Host, Location, Trip, Itenrary, Booking
 
 
 class HostSerializer(serializers.ModelSerializer):
@@ -28,3 +28,14 @@ class TripSerializer(serializers.ModelSerializer):
         response['destination_location'] = LocationSerializer(instance.destination_location).data
         return response
 
+
+class BookingSerializer(serializers.ModelSerializer):
+
+    def update(self, instance, validated_data):
+        instance.is_active = validated_data.get('is_active', instance.is_active)
+        instance.save()
+        return instance
+
+    class Meta:
+        model = Booking
+        fields = '__all__'
