@@ -1,9 +1,8 @@
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets
 from django.contrib.auth.models import User
-from rest_framework.response import Response
 
 from .forms import CreateUserForm, CreateProfileForm, EditUserForm
 from .models import Trip, Profile, TripsUser, Booking
